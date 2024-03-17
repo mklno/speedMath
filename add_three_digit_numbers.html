@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Addition Practice - Three Digit Numbers</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+    #container {
+      max-width: 500px;
+      margin: 50px auto;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      margin-top: 0;
+      color: #333;
+    }
+    p {
+      color: #555;
+    }
+    input[type="text"] {
+      width: calc(100% - 80px);
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      font-size: 18px;
+      margin-top: 20px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1>Addition Practice - Three Digit Numbers</h1>
+    <p id="question"></p>
+    <input type="text" id="answer" placeholder="Enter your answer" onkeypress="handleKeyPress(event)">
+    <button onclick="checkAnswer()">Check Answer</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function getRandomNumber() {
+      return Math.floor(Math.random() * 900) + 100; // Generate a random three-digit number
+    }
+
+    function displayNewQuestion() {
+      var num1 = getRandomNumber();
+      var num2 = getRandomNumber();
+      var sum = num1 + num2;
+      document.getElementById('result').innerText = '';
+      document.getElementById('answer').value = '';
+      document.getElementById('answer').setAttribute('data-sum', sum);
+      document.getElementById('question').innerText = `What is the sum of ${num1} and ${num2}?`;
+    }
+
+    function handleKeyPress(event) {
+      if (event.keyCode === 13) {
+        checkAnswer();
+      }
+    }
+
+    function checkAnswer() {
+      var userAnswer = document.getElementById('answer').value.trim();
+      var correctAnswer = document.getElementById('answer').getAttribute('data-sum');
+      var resultElement = document.getElementById('result');
+
+      if (userAnswer === '') {
+        resultElement.innerText = 'Please enter your answer.';
+        return;
+      }
+
+      if (parseInt(userAnswer) === parseInt(correctAnswer)) {
+        resultElement.innerText = 'Correct! Well done!';
+      } else {
+        resultElement.innerText = `Incorrect. The correct answer is ${correctAnswer}.`;
+      }
+
+      setTimeout(displayNewQuestion, 500); // Display a new question after 2 seconds
+    }
+
+    // Initialize the app with the first question
+    displayNewQuestion();
+  </script>
+</body>
+</html>
+
